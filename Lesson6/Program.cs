@@ -101,7 +101,6 @@ abstract class GeometryFigure
         }
         public void DrawFigureSide()
         {
-            double angle = 360 / NumberSide;
             for (int i = 1; i <= drawChars.Length; i+= 2)
             {
                 int temp = (int)Math.Floor((double)(drawChars.Length / 2) - (int)Math.Floor((double)i / 2));
