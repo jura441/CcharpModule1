@@ -2,6 +2,8 @@
 //Console.WriteLine("Hello, World!");
 using System.Xml;
 using System.Text;
+
+
 List<Product> listProduct = new List<Product>() {
     new Product ("Acer", "Суперигровой", 300000),
     new Product ("Asus", "Офис унылый", 30000),
@@ -9,16 +11,17 @@ List<Product> listProduct = new List<Product>() {
 
 };
 Order ord=new Order(listProduct);
+XmlTextWriter? xmltw = null;
 try
 {
-    XmlTextWriter xmltw = new XmlTextWriter("test.xml", Encoding.Unicode);
+    xmltw = new XmlTextWriter("test.xml", Encoding.Unicode);
     xmltw.Formatting = Formatting.Indented;
     xmltw.Indentation = 4;
     xmltw.WriteStartDocument();
     xmltw.WriteStartElement("orders");
     foreach(Product product in ord._products)
     {
-        xmltw.WriteStartElement("product");
+        xmltw.WriteStartElement("Product");
         xmltw.WriteAttributeString("name", product.Name);
         xmltw.WriteElementString("description", product.Description);
         xmltw.WriteElementString("price", product.Price.ToString());
@@ -38,7 +41,8 @@ catch (Exception ex)
 }
 finally
 {
-    if()
+    if (xmltw != null)
+        xmltw.Close();
         
 }
 class Order
@@ -46,7 +50,7 @@ class Order
     static Random random = new Random();
     public int _id;
     public DateTime OrderDate { get; set; }
-    public List<Product> _products=new List<Product>();
+    public List<Product> _products = new List<Product>();
     public Order(List<Product> Products)
     {
         _products = Products;
@@ -55,7 +59,7 @@ class Order
 }
 class Product
 {
-    int _id;
+    public int ID { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public int Price { get; set; }

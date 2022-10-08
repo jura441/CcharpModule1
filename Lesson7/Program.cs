@@ -190,9 +190,9 @@ class Command
     {
         Console.WriteLine("Список книг в магазине: ");
     }
-    public static void GetAllBookCommand()
-    {
-        Console.WriteLine("Список книг в магазине");
-    }
+    //public static void GetAllBookCommand()
+    //{
+    //    Console.WriteLine("Список книг в магазине");
+    //}
 
 }
