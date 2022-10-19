@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -14,6 +10,8 @@ namespace AuthoriseXML
         static bool AuthoriseFailed = true;
         static void Main(string[] args)
         {
+            List<Quiz> quizzes = new List<Quiz>();
+            quizzes.Add(new Quiz("Информатика"));
             if (ConsoleCommand.UserStart() == "auth")
             {
                 while (AuthoriseFailed)
@@ -23,6 +21,29 @@ namespace AuthoriseXML
                     if (AuthoriseFailed) ConsoleCommand.FailedAuth();
                 }
                 if (!AuthoriseFailed) ConsoleCommand.SucessAuth();
+                while (true)
+                {
+                    ConsoleCommand.InformationAfterAuth();
+                    string[] command = Console.ReadLine().Split(" ");
+                    switch (command[0])
+                    {
+                        case "quizlist": foreach (Quiz q in quizzes) { Console.WriteLine($"{q.Name}"); }; break;
+                        case "startquiz":
+                            foreach (Quiz q in quizzes)
+                            {
+                                if (q.Name == command[1])
+                                {
+                                    Console.WriteLine($"Ваше счет: {q.StartQuiz()}");
+                                }
+                            };
+                            break;
+                        case "quizresults":; break;
+                        case "topquiz":; break;
+                        case "changesettings":; break;
+                        case "exit":; break;
+                        default:; break;
+                    }
+                }
             }
             else
             {
@@ -40,10 +61,9 @@ namespace AuthoriseXML
                 DateTime dateOfBirth = new DateTime(Int32.Parse(date[0]), Int32.Parse(date[1]), Int32.Parse(date[2]));
                 Authorize.SaveUserData(login, password, dateOfBirth);
             }
+
+
+
         }
     }
-
-    
-
-    
 }
